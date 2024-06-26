@@ -1,0 +1,15 @@
+meta {
+  name: Get all the wars
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/star-wars/wars
+  body: none
+  auth: none
+}
+
+headers {
+  accept: application/json
+}

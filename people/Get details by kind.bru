@@ -1,0 +1,19 @@
+meta {
+  name: Get details by kind
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{base_url}}/star-wars/people/:peopleSlug
+  body: none
+  auth: none
+}
+
+params:path {
+  peopleSlug: sith
+}
+
+assert {
+  res.status: eq 200
+}

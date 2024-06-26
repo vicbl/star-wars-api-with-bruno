@@ -1,0 +1,34 @@
+meta {
+  name: Level up a kind
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{base_url}}/star-wars/people/:peopleSlug/level-up
+  body: none
+  auth: bearer
+}
+
+params:path {
+  peopleSlug: wookie
+}
+
+headers {
+  accept: application/json
+}
+
+auth:bearer {
+  token: {{galactic_passport}}
+}
+
+script:pre-request {
+  console.log(req)
+}
+
+tests {
+  test ("Renvoie un statut http 201", function() {
+  const data = res. getBody ();
+  expect (res. getStatus ()).to.equal (201);
+  });
+}

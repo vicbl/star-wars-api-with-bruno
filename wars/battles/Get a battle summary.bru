@@ -1,0 +1,20 @@
+meta {
+  name: Get a battle summary
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{base_url}}/star-wars/wars/:warSlug/battles/:battleSlug/summary
+  body: none
+  auth: none
+}
+
+params:path {
+  battleSlug: conquest-for-the-death-star-1
+  warSlug: client-api-war
+}
+
+headers {
+  accept: application/json
+}

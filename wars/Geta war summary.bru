@@ -1,0 +1,19 @@
+meta {
+  name: Geta war summary
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{base_url}}/star-wars/wars/:warSlug/summary
+  body: none
+  auth: none
+}
+
+params:path {
+  warSlug: client-api-war
+}
+
+headers {
+  accept: application/json
+}

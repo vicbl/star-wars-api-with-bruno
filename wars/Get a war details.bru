@@ -1,0 +1,19 @@
+meta {
+  name: Get a war details
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{base_url}}/star-wars/wars/:warSlug
+  body: none
+  auth: none
+}
+
+params:path {
+  warSlug: client-api-war
+}
+
+headers {
+  accept: application/json
+}
