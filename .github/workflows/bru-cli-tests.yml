@@ -57,6 +57,7 @@ jobs:
       - name: Run tests
         run: |
           cd .
+          npm install # Installation des dépendances de la collection
           bru run --env ${{ env.ENVIRONMENT }} --output junit.xml --format junit --env-var password=${{ env.PASSWORD }}
 
       # Étape pour publier le rapport de tests
