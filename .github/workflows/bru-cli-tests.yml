@@ -65,5 +65,5 @@ jobs:
         if: success() || failure() # Exécuter cette étape si le job réussit ou échoue
         with:
           name: Test Report
-          path: first_collection/junit.xml # Remplacez <<collection_folder_name>> par le nom du dossier de votre collection
+          path: junit.xml # Remplacez <<collection_folder_name>> par le nom du dossier de votre collection
           reporter: java-junit
