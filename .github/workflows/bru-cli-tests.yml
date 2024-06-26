@@ -1,0 +1,69 @@
+name: Bru CLI Tests
+
+# Déclenche le workflow manuellement avec une entrée 'build'
+on:
+  workflow_dispatch:
+    inputs:
+      build:
+        description: 'Bru CLI - Tests'
+        required: true
+        default: 'true'
+  # Déclenche le workflow sur un push vers la branche 'main'
+  push:
+    branches: [main]
+  # Déclenche le workflow sur les événements de pull request spécifiés
+  pull_request:
+    types: [ opened, synchronize, reopened ]
+
+# Définir les variables d'environnement globales
+env:
+  ENVIRONMENT: Tatooine
+  PASSWORD: ${{ secrets.GALACTIC_PASSPORT_PASSWORD }}
+
+# Définir les permissions nécessaires pour les tests unitaires
+permissions:
+  statuses: write
+  checks: write
+  contents: write
+  pull-requests: write
+  actions: write
+
+# Définir le job de tests
+jobs:
+  test:
+    name: Bruno CLI - Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      # Étape pour récupérer le code source du dépôt
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Étape pour configurer Node.js
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # Étape pour installer Bru CLI globalement
+      - name: Install Bru CLI
+        run: npm install -g @usebruno/cli
+
+      # Étape pour afficher la version de Bru CLI installée
+      - name: Display Bru CLI Version
+        run: bru --version
+
+      # Étape pour exécuter les tests avec Bru CLI
+      - name: Run tests
+        run: |
+          cd <<collection_folder_name>> # Remplacez <<collection_folder_name>> par le nom du dossier de votre collection
+          bru run --env ${{ env.ENVIRONMENT }} --output junit.xml --format junit --env-var password=${{ env.PASSWORD }}
+
+      # Étape pour publier le rapport de tests
+      - name: Publish Test Report
+        uses: dorny/test-reporter@v1
+        if: success() || failure() # Exécuter cette étape si le job réussit ou échoue
+        with:
+          name: Test Report
+          path: <<collection_folder_name>>/junit.xml # Remplacez <<collection_folder_name>> par le nom du dossier de votre collection
+          reporter: java-junit
