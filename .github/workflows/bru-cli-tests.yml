@@ -56,7 +56,7 @@ jobs:
       # Étape pour exécuter les tests avec Bru CLI
       - name: Run tests
         run: |
-          cd first_collection # Remplacez <<collection_folder_name>> par le nom du dossier de votre collection
+          cd first_collection
           bru run --env ${{ env.ENVIRONMENT }} --output junit.xml --format junit --env-var password=${{ env.PASSWORD }}
 
       # Étape pour publier le rapport de tests
